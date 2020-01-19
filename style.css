@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', 'Arial', sans-serif;
+    text-align: center;
+    background-color: #0E273C;
+    color: #F4FFFD;
+}
+
+h1 {
+    margin: 50px auto;
+    font-size: 40px;
+}
+
+p {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+i {
+    font-size: 100px;
+}
+
+.choices {
+    width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+    font-size: 20px;
+    padding: 10px;
+    width: 30%;
+    border-radius: 10px;
+    outline: none;
+    background-color: #453F78;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #ED254E;
+}
+
+button:focus {
+    background-color: rgb(204, 25, 61);
+}
+
+button:not(:hover) {
+    background-color: #453F78;
+}
+
+.reset {
+    width: 200px;
+}
+
+.game-display {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 1100px;
+}
+
+.game-display > p {
+    display: inline-block;
+    width: 200px;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.game-display > p:first-child {
+    text-align: end;
+}
+
+.score-container {
+    display: flex;
+    width: 700px;
+    margin: 50px auto;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+}
+
+.score-container div {
+    width: 210px;
+    height: 210px;
+    border-radius: 15px;
+    background-color: #ED254E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score {
+    font-size: 70px;
+}
+
+.hidden {
+    display: none;
+}

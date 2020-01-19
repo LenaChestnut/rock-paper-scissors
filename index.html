@@ -4,9 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="script.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://kit.fontawesome.com/6b330cd79e.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
+    <h1>Rock Paper Scissors</h1>
+
+    <!-- Will display the number of the current round and the result in the end -->
+    <p>Round <span class="round-display">1</span> out of 5</p>
+    <p class="result hidden"></p>
+
+    <div class="choices">
+        <button class="choice-button rock">Rock</button>
+        <button class="choice-button paper">Paper</button>
+        <button class="choice-button scissors">Scissors</button>
+    </div>
+
+    <button class="reset hidden">New Game</button>
+
+    <div class="game-display">
+        <p>You</p>
+
+        <div class="score-container">
+        
+            <div>
+                <p class="player-choice"></p>
+            </div>
     
+            <p class="score">
+                <span class="player-score">0</span>:<span class="computer-score">0<span>
+            </p>    
+    
+    
+            <div>
+                <p class="computer-choice"></p>
+            </div>
+            
+        </div> 
+
+        <p>Computer</p>
+    </div>
+
+
+    <script src="script.js"></script>
 </body>
 </html>

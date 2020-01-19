@@ -1,45 +1,135 @@
 //Computer randomly returns Rock, Paper or Scissors
 
 let computerSelection;
+let playerSelection;
 
+let playerScoreDisplay = document.querySelector('.player-score');
+let computerScoreDisplay = document.querySelector('.computer-score');
+
+let roundNumber = 1;
+
+let playerScore = 0;
+let computerScore = 0;
+
+let roundDisplay = document.querySelector('.round-display');
+let playerDisplay = document.querySelector('.player-choice');
+let computerDisplay = document.querySelector('.computer-choice');
+
+let choices = document.querySelector('.choices');
+
+let rockButton = document.querySelector(".rock");
+let paperButton = document.querySelector(".paper");
+let scissorsButton = document.querySelector(".scissors");
+
+let playButton = document.querySelectorAll(".choice-button");
+let resetButton = document.querySelector(".reset")
+
+let result = document.querySelector('.result');
+let message = document.querySelector('h1 + p');
+
+//add event listener for a single round logic to each button
+choices.addEventListener('click', function(e) {
+    //make sure that the clicked element is a button. 
+    //nodeName is a read-only property that returns name of the node in uppercase
+    const isButton = e.target.nodeName;
+    if (isButton !== 'BUTTON') {
+        return;
+    }
+
+    if (roundNumber < 5) {
+        playerPlay(e);
+        computerPlay();
+        game();
+        updateScore();
+        roundCount();
+    } else {
+        playerPlay(e);
+        computerPlay();
+        game();
+        updateScore();
+
+        result.classList.remove('hidden');
+        message.classList.add('hidden');
+
+        if (playerScore > computerScore) {
+            result.textContent = "You won!";
+        } else if (playerScore < computerScore) {
+            result.textContent = "You lost";
+        } else {
+            result.textContent = "Draw";
+        }
+
+        for (let i = 0; i < playButton.length; i++) {
+            playButton[i].classList.add("hidden");
+        }
+
+        resetButton.classList.remove("hidden");
+
+    }
+    
+})
+
+//assigned selected option to playerSelection
+function playerPlay(e) {
+    if (e.target === rockButton) {
+        playerSelection = 'rock';
+    } else if (e.target === paperButton) {
+        playerSelection = 'paper';
+    } else if (e.target === scissorsButton) {
+        playerSelection = 'scissors';
+    }
+}
+
+//computer randomly selects an option
 function computerPlay() {
     let arr = ["rock", "paper", "scissors"];
     let x = Math.floor(Math.random() * 3);
-    return arr[x];
+    computerSelection = arr[x];
 }
 
-//Function for a single round of the game
+//round logic
+function game() {
 
-/*function playRound(playerSelection, computerSelection) {
-    let x = playerSelection.toLowerCase();
-    let playerChoice = x.charAt(0).toUpperCase() + x.slice(1);
+    updateDisplay();
 
-    if (playerChoice === computerSelection) {
-        //console.log("It's a draw!");
-        return "It's a draw!";
-    }  else if (playerChoice === "Paper" && computerSelection === "Rock" || playerChoice === "Rock" && computerSelection === "Scissors" || playerChoice === "Scissors" && computerSelection === "Paper") {
-        if (playerChoice === "Scissors") {
-            //console.log("You win! Scissors beat " + computerSelection + ".");
-            return "You win! Scissors beat " + computerSelection + "."; 
-        } else {
-            //console.log("You win! " + playerChoice + " beats " + computerSelection + ".");
-            return "You win! " + playerChoice + " beats " + computerSelection + ".";
-        }
-    } else if (computerSelection === "Paper" && playerChoice === "Rock" || computerSelection === "Rock" && playerChoice === "Scissors" || computerSelection === "Scissors" && playerChoice === "Paper") {
-        if (computerSelection === "Scissors") {
-            //console.log("You lose! Scissors beat " + playerChoice + ".");
-            return "You lose! Scissors beat " + computerSelection + "."; 
-        } else {
-            //console.log("You lose! " + computerSelection + " beats " + playerChoice + ".");
-            return "You lose! " + computerSelection + " beats " + playerChoice + ".";       
-        }
-    } else {
-        return "There's no " + playerChoice + " option. Try again";
-        //console.log("There's no " + playerChoice + " option. Try again");
+    let roundResult = playRound(playerSelection, computerSelection);
+
+    if (roundResult === 1) {
+        playerScore++;
+    } else if (roundResult === -1) {
+        computerScore++;
     }
-} */
 
-function playRound(playerSelection, computerSelection) {
+}
+
+function updateDisplay() {
+    switch(playerSelection) {
+        case 'rock':
+            playerDisplay.innerHTML = '<i class="fas fa-hand-rock"></i>';
+            break;
+        case 'paper':
+            playerDisplay.innerHTML = '<i class="fas fa-hand-paper"></i>';
+            break;
+        case 'scissors':
+            playerDisplay.innerHTML = '<i class="fas fa-hand-scissors"></i>';
+            break;
+    }
+
+    switch(computerSelection) {
+        case 'rock':
+            computerDisplay.innerHTML = '<i class="fas fa-hand-rock"></i>';
+            break;
+        case 'paper':
+            computerDisplay.innerHTML = '<i class="fas fa-hand-paper"></i>';
+            break;
+        case 'scissors':
+            computerDisplay.innerHTML = '<i class="fas fa-hand-scissors"></i>';
+            break;
+    }
+
+}
+
+function playRound() {
 
     if (playerSelection === computerSelection) {
         //DRAW
@@ -50,55 +140,39 @@ function playRound(playerSelection, computerSelection) {
     } else if (computerSelection === "paper" && playerSelection === "rock" || computerSelection === "rock" && playerSelection === "scissors" || computerSelection === "scissors" && playerSelection === "paper") {
         //PLAYER LOSE
         return -1;       
-    } else {
-        //ERROR
-        return 2;
     }
 }
 
-//Game function
-
-function game() {
-    //create variables to keep score
-    let playerScore = 0;
-    let computerScore = 0;
-
-    //loop for 5 rounds
-    for (let i = 1; i < 6; i++) {
-        //player's input is converted to lowercase and computer's choice is a result of the function
-        let playerChoice = prompt("Rock, paper or scissors?");
-        let playerSelection = playerChoice.toLowerCase();
-        let computerSelection = computerPlay();
-
-        //output message is determined based on the result of the playRound() function
-        let roundResult = playRound(playerSelection, computerSelection);
-
-        if (roundResult === 1) {
-            playerScore++;
-            console.log("WIN! You've beaten " + computerSelection + " with " + playerSelection);
-        } else if (roundResult === -1) {
-            computerScore++;
-            console.log("Lose! Your " + playerSelection + " lost to " + computerSelection);
-        } else if (roundResult === 0) {
-            console.log("It's a draw!");
-        } else {
-            console.log("Sorry, " + playerChoice + " isn't one of the options.");
-        }
-
-        //score is printed at the end of each round
-        console.log("Score: " + playerScore + ":" + computerScore);
-        
-    }
-
-    //final score and the result are printed out after 5 rounds
-    console.log("FINAL SCORE: " + playerScore + ":" + computerScore);
-
-    if (playerScore === computerScore) {
-        console.log("It's a tie!");
-    } else if (playerScore > computerScore) {
-        console.log("You won!");
-    } else {
-        console.log("You lost");
-    }
-
+function updateScore() {
+    playerScoreDisplay.textContent = playerScore;
+    computerScoreDisplay.textContent = computerScore;
 }
+
+function roundCount() {
+    roundNumber++;
+    roundDisplay.textContent = roundNumber;
+}
+
+resetButton.addEventListener('click', function() {
+    playerScore = 0;
+    computerScore = 0;
+
+    updateScore();
+
+    roundNumber = 1;
+
+    resetButton.classList.add('hidden');
+
+    for (let i = 0; i < playButton.length; i++) {
+        playButton[i].classList.remove("hidden");
+    }
+
+    result.classList.add('hidden');
+    message.classList.remove('hidden');
+
+    roundDisplay.textContent = roundNumber;
+
+    playerDisplay.textContent = "";
+    computerDisplay.textContent = "";
+});
+
