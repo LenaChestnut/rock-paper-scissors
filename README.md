@@ -2,7 +2,9 @@
 
 Practice project ([part of the TOP curriculum](https://www.theodinproject.com/courses/web-development-101/lessons/rock-paper-scissors)).
 
-## Objectice
+[Link to demo](https://lenachestnut.github.io/rock-paper-scissors/)
+
+## Objective
 
 Create a simple JS implementation of Rock Paper Scissors. User will be playing against computer. The game will play five rounds and the winner will be determined based on the score.
 
